@@ -1,0 +1,20 @@
+.mymarkdown-body blockquote {
+    display: block;
+    margin: 0 0 12px;
+    border-left: 8px solid #dddfe4;
+    background: #eef0f4;
+    overflow: auto;
+}
+
+.mymarkdown-body a {
+    color: #4ea1db;
+    text-decoration: none;
+}
+
+.mymarkdown-body pre {
+    background-color: aliceblue;
+}
+.mymarkdown-body img {
+    border-left: 8px;
+    padding-top: 8px;
+}
