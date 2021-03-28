@@ -6,9 +6,10 @@ import less from 'less'
 import './assets/css/global.css'
 Vue.use(less)
 
-//全局引入axios
-import axios from 'axios'
-Vue.prototype.$axios = axios
+import axios from 'axios' //引入axios
+//由于在其他组件中无法使用axios命令，所以需要将axios改写为Vue的原型属性。
+Vue.prototype.$ajax=axios //修改Vue的原型属性
+
 
 //引入element-ui依赖
 import Element from 'element-ui'
