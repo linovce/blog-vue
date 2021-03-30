@@ -7,6 +7,8 @@ import ArticleShow from '../views/ArticleShow.vue'
 import ArticleManagement from '../views/ArticleManagement.vue'
 import About from '../views/About.vue'
 import Home from '../views/Home.vue'
+import ArticleManage from '../views/ArticleManage.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -31,6 +33,7 @@ const routes = [
       {
         path: '/home_page',component: Home
       }
+
     ]
   }
   ,
@@ -38,6 +41,9 @@ const routes = [
     path:'/home',
     name:'Home',
     component: Home,
+  },
+  {
+    path: '/articleManage',component: ArticleManage
   }
 ];
 
