@@ -7,6 +7,9 @@ import './assets/css/global.css'
 Vue.use(less)
 
 import axios from 'axios' //引入axios
+import VueAxios from 'vue-axios'
+ 
+Vue.use(VueAxios,axios)
 //由于在其他组件中无法使用axios命令，所以需要将axios改写为Vue的原型属性。
 Vue.prototype.$ajax=axios //修改Vue的原型属性
 
