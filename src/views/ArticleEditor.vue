@@ -3,10 +3,10 @@
         <div class="m-content">
             <el-form ref="editForm" status-icon :model="editForm" :rules="rules" label-width="80px">
                 <el-form-item label="标题" prop="title">
-                    <el-input v-model="editForm.title"></el-input>
+                    <el-input v-model="editForm.articleName"></el-input>
                 </el-form-item>
                 <el-form-item label="摘要" prop="description">
-                    <el-input type="textarea" v-model="editForm.description"></el-input>
+                    <el-input type="textarea" v-model="editForm.summary"></el-input>
                 </el-form-item>
                 <el-form-item label="内容" prop="content">
                     <mavon-editor v-model="editForm.content"/>
@@ -26,9 +26,8 @@
         data() {
             return {
                 editForm: {
-                    id: null,
-                    title: '',
-                    description: '',
+                    articleName: '',
+                    summary: '',
                     content: ''
                 },
                 rules: {
@@ -44,7 +43,15 @@
         },
         methods:{
             submit(){
-                console.log(this.editForm.content)
+                console.log(this.editForm)
+                var __this = this;
+                this.axios({
+                    method:'post',
+                    url:'http://127.0.0.1:8082/insertArticle',
+                    data:__this.editForm,
+                }).then(function (response) {
+                    console.log(response.data);
+                })
             }
         }
     }
