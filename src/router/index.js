@@ -21,7 +21,7 @@ const routes = [
         path: '/login',component: Login
       },
       {
-        path: '/articleManagement',component: ArticleManagement
+        path: '/articleManagement',component: ArticleManage
       },
       {
         path: '/articleEditor',component: ArticleEditor
