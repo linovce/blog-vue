@@ -1,57 +1,69 @@
 <template>
   <div>
-    <el-table :data="tableData" border style="width: 100%">
-      <el-table-column prop="articleId" label="文章编号"v-if="false"> </el-table-column>
-      <el-table-column width="320" prop="articleName" label="标题" >
-        <template slot-scope="scope">
-          <el-tag v-if="scope.row.original" type="success" effect="dark" size="mini">
-            <span>原创</span>
-          </el-tag>
-          <el-tag v-else effect="dark" size="mini">
-            <span>转载</span>
-          </el-tag>
-          <span style="margin-left: 10px">{{ scope.row.articleName }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column width="80" prop="views" label="浏览"> </el-table-column>
-      <el-table-column width="80" prop="appreciate" label="点赞" > </el-table-column>
-      <el-table-column label="评论开启">
-        <template slot-scope="scope">
-          <el-switch
-                  v-model="scope.row.comments"
-                  active-text="开启"
-                  @change="updateComment(scope.row)">
-          </el-switch>
-        </template>
-      </el-table-column>
-      <el-table-column label="版权显示">
-        <template slot-scope="scope">
-          <el-switch
-                  v-model="scope.row.copyright"
-                  active-text="开启"
-                  @change="updateCopyright(scope.row)">
-          </el-switch>
-        </template>
-      </el-table-column>
-      <el-table-column label="发布">
-        <template slot-scope="scope">
-          <el-switch
-                  v-model="scope.row.publish"
-                  active-text="发布"
-                  @change="updatePublish(scope.row)">
-          </el-switch>
-        </template>
-      </el-table-column>
-      <el-table-column prop="createDate" label="发布时间" > </el-table-column>
-      <el-table-column prop="doneDate" label="操作时间" > </el-table-column>
-      <el-table-column label="操作" width="180">
-        <template slot-scope="scope">
-          <el-button type="primary" icon="el-icon-edit" circle size="mini"></el-button>
-          <el-button type="danger" icon="el-icon-delete" circle size="mini"></el-button>
-          <el-button type="success" icon="el-icon-view" circle size="mini"></el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+    <div style="width: 100%;padding-bottom: 50px">
+      <div style="width: 30%;float: right;margin-bottom: 15px" >
+        <el-input placeholder="请输入内容" v-model="article">
+          <el-button slot="append" icon="el-icon-search" @click="searchArticle()"></el-button>
+        </el-input>
+      </div>
+      <div style="width: 30%;float: left;margin-bottom: 15px;margin-left: 50px" >
+        <el-button type="primary" icon="el-icon-edit">新增博客</el-button>
+      </div>
+    </div>
+    <div>
+      <el-table :data="tableData" border style="width: 100%">
+        <el-table-column prop="articleId" label="文章编号"v-if="false"> </el-table-column>
+        <el-table-column width="320" prop="articleName" label="标题" >
+          <template slot-scope="scope">
+            <el-tag v-if="scope.row.original" type="success" effect="dark" size="mini">
+              <span>原创</span>
+            </el-tag>
+            <el-tag v-else effect="dark" size="mini">
+              <span>转载</span>
+            </el-tag>
+            <span style="margin-left: 10px">{{ scope.row.articleName }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column width="80" prop="views" label="浏览"> </el-table-column>
+        <el-table-column width="80" prop="appreciate" label="点赞" > </el-table-column>
+        <el-table-column label="评论开启">
+          <template slot-scope="scope">
+            <el-switch
+                    v-model="scope.row.comments"
+                    active-text="开启"
+                    @change="updateComment(scope.row)">
+            </el-switch>
+          </template>
+        </el-table-column>
+        <el-table-column label="版权显示">
+          <template slot-scope="scope">
+            <el-switch
+                    v-model="scope.row.copyright"
+                    active-text="开启"
+                    @change="updateCopyright(scope.row)">
+            </el-switch>
+          </template>
+        </el-table-column>
+        <el-table-column label="发布">
+          <template slot-scope="scope">
+            <el-switch
+                    v-model="scope.row.publish"
+                    active-text="发布"
+                    @change="updatePublish(scope.row)">
+            </el-switch>
+          </template>
+        </el-table-column>
+        <el-table-column prop="createDate" label="发布时间" > </el-table-column>
+        <el-table-column prop="doneDate" label="操作时间" > </el-table-column>
+        <el-table-column label="操作" width="180">
+          <template slot-scope="scope">
+            <el-button type="primary" icon="el-icon-edit" circle size="mini"></el-button>
+            <el-button type="danger" icon="el-icon-delete" circle size="mini"></el-button>
+            <el-button type="success" icon="el-icon-view" circle size="mini"></el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
     <div style="float: right;padding-top: 10px">
       <el-pagination
               @size-change="handleSizeChange"
@@ -83,6 +95,9 @@ export default {
 
   },
   methods:{
+    searchArticle(){
+      console.log("chafgsdfgg")
+    },
     handleSizeChange(val){
       var __this = this;
       __this.page.pageSize=val;
