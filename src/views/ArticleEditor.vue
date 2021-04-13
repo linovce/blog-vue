@@ -171,8 +171,6 @@
                     // home_picture
                     labels:__this.tags,
                     classifications:__this.classifys,
-                    // appreciate
-                    // views
                     // original
                     // is_comments
                     // is_copyright
