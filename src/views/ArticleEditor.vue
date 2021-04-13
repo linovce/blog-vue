@@ -164,12 +164,30 @@
                 this.tagValue = '';
             },
             submit(){
-                console.log(this.editForm)
+                var __this = this;
+                const params = {
+                    articleName:__this.editForm.articleName,
+                    content:__this.editForm.content,
+                    // home_picture
+                    labels:__this.tags,
+                    classifications:__this.classifys,
+                    // appreciate
+                    // views
+                    // original
+                    // is_comments
+                    // is_copyright
+                    // is_publish
+                    // create_date
+                    // done_date
+                    summary:__this.editForm.summary,
+
+                }
+
                 var __this = this;
                 this.axios({
                     method:'post',
                     url:'http://127.0.0.1:8082/insertArticle',
-                    data:__this.editForm,
+                    data:params,
                 }).then(function (response) {
                     console.log(response.data);
                 })
