@@ -1,5 +1,29 @@
 <template>
-    <div class="mymarkdown-body" v-html= "compiledMarkdown"></div>
+    <div>
+        <div>
+            <div id="title">{{articleName}}</div>
+            <div style="text-align: center;padding-bottom: 5px">
+                <span style="font-size: 14px;color: #999 !important;width: 18px;margin-right: 10px">作者：linovce</span>
+                <template style="margin-right: 10px">
+                    <el-tag v-if="original" type="success"  size="small">
+                        <span>原创</span>
+                    </el-tag>
+                    <el-tag v-else effect="dark" size="mini">
+                        <span>转载</span>
+                    </el-tag>
+                </template>
+                <span style="font-size: 14px;color: #999 !important;margin-left: 10px">编辑时间：2021-4-15</span>
+                <iview class="el-icon-view" style="margin-left: 10px"></iview>
+                <span style="font-size: 14px;color: #999 !important;">100</span>
+            </div>
+            <div id="labels">
+                <span style="font-size: 14px;color: #999 !important;">标签：</span><el-tag>标签一</el-tag><el-tag>标签一</el-tag><el-tag>标签一</el-tag><el-tag>标签一</el-tag><el-tag>标签一</el-tag>
+            </div>
+        </div>
+        <el-divider style="height:5px background-color:black !important"></el-divider>
+        <div class="mymarkdown-body" v-html= "compiledMarkdown"></div>
+    </div>
+
 </template >
 <script>
     import marked from 'marked'
@@ -23,9 +47,15 @@
         xhtml:false
     })
     export default {
+        created() {
+            this.init()
+        },
+
         name: 'ArticleShow',
         data () {
             return {
+                articleName:"使用Java生成思维导图",
+                original:true,
                 input:'# 使用Java生成思维导图\n' +
                     '### 前言\n' +
                     '最近因为一些原因需要做一些资料管理，准备建一个文件夹，然后对各种资料做一个分类，每个分类做一个文件夹。\n' +
@@ -184,55 +214,49 @@
                 return marked ( this.input, )
             }
         },
+        methods:{
+            init(){
+                var __this = this;
+                var articleId = this.$route.query.articleId;
+                if(articleId!=null&&articleId!=""){
+                    this.axios({
+                        method:'get',
+                        url:'http://127.0.0.1:8081/selectArticle',
+                        params:{
+                            articleId:articleId
+                        }
+                    }).then(function (response) {
+                        __this.input = response.data.content;
+                        __this.articleName = response.data.articleName;
+                    })
+                }
+            }
+        }
     }
 </script>
 
 <style lang="less" scoped>
-    body{
+    #labels{
         text-align: center;
     }
+    #title{
+        font-size: 28px;
+        word-wrap: break-word;
+        color: #222226;
+        font-weight: 600;
+        margin: 0;
+        word-break: break-all;
+        text-align: center;
+        padding-bottom: 10px;
+    }
+    .el-divider {
+        background-color: #4ea1db;
+        position: relative;
+    }
+    .el-divider--horizontal {
+        display: block;
+        height: 2px;
+        width: 100%;
+        margin: 12px 0;
+    }
 </style>
-
-<!--<template>-->
-<!--    <mavon-editor-->
-<!--            class="md"-->
-<!--            :value="opts.api_doc"-->
-<!--            :subfield="false"-->
-<!--            :boxShadow="false"-->
-<!--            defaultOpen="preview"-->
-<!--            :toolbarsFlag="false"-->
-<!--    />-->
-<!--</template>-->
-<!--<script>-->
-<!--    export default {-->
-<!--        name: "ArticleShow",-->
-<!--        data () {-->
-<!--            return {-->
-<!--                // opts.api_doc 即为md文档内容-->
-<!--                opts: {-->
-<!--                    api_doc: "# idea2020.1踩坑：找不到程序包和符号(冷门解决)\n" +-->
-<!--                        "我下好idea2020.1和maven之后，在maven的setting.xml加上了localRepository修改仓库位置，然后在idea的setting里面设置maven地址为我修改到的那个地址**(这也是我以前在多台电脑上的做法，都没有出现过现在这种情况)**。\n" +-->
-<!--                        "\n" +-->
-<!--                        "在使用idea2020.1版本创建maven项目编译时提示找不到程序包和符号之类的错误。\n" +-->
-<!--                        "![在这里插入图片描述](https://img-blog.csdnimg.cn/20200430184847545.png)\n" +-->
-<!--                        "我试了网上很多解决办法，包括重新编译、设置编码、检查版本、检查maven等等。因为这些解决方式网上很多，我就不写了，可以见下面这个博主的博文(写的时候随手找的，基本上就这些方式)。\n" +-->
-<!--                        "\n" +-->
-<!--                        "> [idea找不到程序包和符号常见的解决方式](https://www.cnblogs.com/yswyzh/p/9808878.html)\n" +-->
-<!--                        "\n" +-->
-<!--                        "上面这些方法我都试过，都没能解决，因为idea是破解的，所以一度怀疑是不是破解jar包的问题，或者是新版idea在防盗版上又做了什么设计。\n" +-->
-<!--                        "\n" +-->
-<!--                        "后来问了下我一位用了同版本idea，同一个破解jar包的朋友，发现他的没问题，但是他的maven仓库是默认的，在C盘，因此我想是不是这个原因。\n" +-->
-<!--                        "\n" +-->
-<!--                        "我把idea的maven设置还原成默认的，然后再跑，终于成功了，但jar下在C盘也不是办法，后来百度翻了七八页才翻到跟我有同样问题的兄弟(说明这种情况可能确实少，搜半天才一篇)，**要把maven自己加的localRepository删掉，用默认的，如果不想下在C盘，就在idea手动修改本地仓库的配置。**\n" +-->
-<!--                        "\n" +-->
-<!--                        "到此终于解决了找不到程序包和符号的问题，也解决了默认仓库占用系统盘的问题。至于原因，暂时不知道，以前都是修改maven的setting.xml添加localRepository，然后idea直接就用了，这次idea2020.1为什么不能就不清楚了。\n" +-->
-<!--                        "\n" +-->
-<!--                        "我本来是懒得写这种博文的，而且这种情况很多博客都写了，但是这种解决方法确实不多，像我，翻了好几页，换了无数种关键词搜索才找到一篇，所以我才写这篇博文，希望对遇到同样问题的人有所帮助。"-->
-<!--                },-->
-<!--            }-->
-<!--        }-->
-<!--    }-->
-<!--</script>-->
-<!--<style lang="less" scoped>-->
-<!--    h1 {color:#00ff00;}-->
-<!--</style>-->

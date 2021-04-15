@@ -59,7 +59,7 @@
           <template slot-scope="scope">
             <el-button type="primary" icon="el-icon-edit" circle size="mini" @click="editArticle(scope.row)"></el-button>
             <el-button type="danger" icon="el-icon-delete" circle size="mini"></el-button>
-            <el-button type="success" icon="el-icon-view" circle size="mini"></el-button>
+            <el-button type="success" icon="el-icon-view" circle size="mini" @click="viewArticle(scope.row)"></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -95,6 +95,9 @@ export default {
 
   },
   methods:{
+    viewArticle(row){
+      this.$router.push({path:'/articleShow',query: {articleId:row.articleId}})
+    },
     editArticle(row){
       this.$router.push({path:'/articleEditor',query: {articleId:row.articleId}})
     },

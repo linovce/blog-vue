@@ -1,3 +1,6 @@
+.mymarkdown-body {
+    margin: 20px;
+}
 .mymarkdown-body blockquote {
     display: block;
     margin: 0 0 12px;
