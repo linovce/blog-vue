@@ -2,7 +2,7 @@
   <div>
     <div style="width: 100%;padding-bottom: 50px">
       <div style="width: 30%;float: right;margin-bottom: 15px" >
-        <el-input placeholder="请输入内容" v-model="article">
+        <el-input placeholder="请输入内容" >
           <el-button slot="append" icon="el-icon-search" @click="searchArticle()"></el-button>
         </el-input>
       </div>
@@ -57,7 +57,7 @@
         <el-table-column prop="doneDate" label="操作时间" > </el-table-column>
         <el-table-column label="操作" width="180">
           <template slot-scope="scope">
-            <el-button type="primary" icon="el-icon-edit" circle size="mini"></el-button>
+            <el-button type="primary" icon="el-icon-edit" circle size="mini" @click="editArticle(scope.row)"></el-button>
             <el-button type="danger" icon="el-icon-delete" circle size="mini"></el-button>
             <el-button type="success" icon="el-icon-view" circle size="mini"></el-button>
           </template>
@@ -95,6 +95,9 @@ export default {
 
   },
   methods:{
+    editArticle(row){
+      this.$router.push({path:'/articleEditor',query: {articleId:row.articleId}})
+    },
     searchArticle(){
       console.log("chafgsdfgg")
     },

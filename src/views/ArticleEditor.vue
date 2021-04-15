@@ -52,7 +52,7 @@
                         </el-input>
                         <el-button v-else-if="classifyAddVisible" size="small" @click="addClassify()">+新增分类</el-button>
                     </div>
-                    <div style="float: right">
+                    <div style="float: right;margin-right: 50px">
                         <el-button type="primary" @click="submit()">立即创建</el-button>
                     </div>
                 </el-form-item>
@@ -72,11 +72,15 @@
 
 <script>
     export default {
+        created() {
+            console.log(this.$route)
+            this.init();
+        },
         name: "ArticleEditor",
         data() {
             return {
-                tags: ['标签一', '标签二', '标签三'],
-                classifys:['分类一', '分类二', '分类三'],
+                tags: [],
+                classifys:[],
                 classifyInputVisible: false,
                 classifyValue: '',
                 classifyAddVisible:true,
@@ -100,6 +104,26 @@
             }
         },
         methods:{
+            init(){
+                var __this = this;
+                var articleId = this.$route.query.articleId;
+                if(articleId!=null&&articleId!=""){
+                    this.axios({
+                        method:'get',
+                        url:'http://127.0.0.1:8081/selectArticle',
+                        params:{
+                            articleId:articleId
+                        }
+                    }).then(function (response) {
+                        console.log(response.data)
+                        __this.editForm.articleName = response.data.articleName;
+                        __this.editForm.summary = response.data.summary;
+                        __this.editForm.content = response.data.content;
+                        __this.tags = response.data.labels.split(",");
+                        __this.classifys = response.data.classifications.split(",");
+                    })
+                }
+            },
             deleteClassify(tag) {
                 this.classifys.splice(this.classifys.indexOf(tag), 1);
                 if(this.classifys.length==5){
@@ -164,31 +188,36 @@
                 this.tagValue = '';
             },
             submit(){
-                var __this = this;
+                var __this = this
+                var articleId = this.$route.query.articleId;
                 const params = {
                     articleName:__this.editForm.articleName,
                     content:__this.editForm.content,
-                    // home_picture
-                    labels:__this.tags,
-                    classifications:__this.classifys,
-                    // original
-                    // is_comments
-                    // is_copyright
-                    // is_publish
-                    // create_date
-                    // done_date
+                    labels:__this.tags.toString(),
+                    classifications:__this.classifys.toString(),
                     summary:__this.editForm.summary,
-
                 }
 
-                var __this = this;
-                this.axios({
-                    method:'post',
-                    url:'http://127.0.0.1:8082/insertArticle',
-                    data:params,
-                }).then(function (response) {
-                    console.log(response.data);
-                })
+                if(articleId==null||articleId==""){
+                    this.axios({
+                        method:'post',
+                        url:'http://127.0.0.1:8081/insertArticle',
+                        data:params,
+                    }).then(function (response) {
+                        __this.$router.push({path:'/articleManagement'})
+                    })
+                }else{
+                    params["articleId"]=articleId;
+                    console.log(params);
+                    this.axios({
+                        method:'post',
+                        url:'http://127.0.0.1:8081/updateArticle',
+                        data:params,
+                    }).then(function (response) {
+                        __this.$router.push({path:'/articleManagement'})
+                    })
+                }
+
             }
         }
     }
