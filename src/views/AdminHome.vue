@@ -43,6 +43,11 @@
               <span><router-link to="/home_page">个人主页</router-link></span>
               <!--              <span>登录页面</span>-->
             </el-menu-item>
+            <el-menu-item index="1-3">
+              <!-- 二级菜单模板 -->
+              <i class="el-icon-s-custom"></i>
+              <span><router-link to="/resume">个人简历</router-link></span>
+            </el-menu-item>
           </el-submenu>
 
           <el-submenu index="2">
