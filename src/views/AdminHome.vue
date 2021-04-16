@@ -11,9 +11,15 @@
     <!-- 主体 -->
     <el-container>
       <!-- 侧边栏 -->
-      <el-aside width="200px">
+      <el-aside :width="isCollapse?'64px':'200px'">
+        <div class="toggle-button" @click="toggleCollapse()">
+          <i class="el-icon-s-fold" v-if="!isCollapse"></i>
+          <i class="el-icon-s-unfold" v-else></i>
+        </div>
         <el-menu background-color="#333744"
           text-color="#fff"
+          :collapse="isCollapse"
+          :collapse-transition="false"
           active-text-color="#fff">
           <!-- 一级菜单 -->
           <el-submenu index="1">
@@ -93,6 +99,17 @@
 <script>
 export default {
   name: "AdminHome",
+  data(){
+    return {
+      isCollapse: false
+    }
+  },
+  methods: {
+    // 点击按钮，切换菜单的折叠与展开
+    toggleCollapse () {
+      this.isCollapse = !this.isCollapse
+    }
+  }
 };
 </script>
 
@@ -132,5 +149,14 @@ export default {
 a{
   text-decoration: none;
   color: aliceblue;
+}
+.toggle-button {
+  background-color: #333744;
+  font-size: 20px;
+  line-height: 24px;
+  color: #fff;
+  text-align: center;
+  letter-spacing: 0.2em;
+  cursor: pointer;
 }
 </style>
