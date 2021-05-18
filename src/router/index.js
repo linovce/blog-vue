@@ -4,7 +4,7 @@ import Login from '../views/Login.vue'
 import ArticleEditor from '../views/ArticleEditor.vue'
 import AdminHome from '../views/AdminHome.vue'
 import ArticleShow from '../views/ArticleShow.vue'
-import ArticleManagement from '../views/ArticleManagement.vue'
+import ArticleList from '../views/ArticleList.vue'
 import About from '../views/About.vue'
 import Home from '../views/Home.vue'
 import Resume from '../views/Resume.vue'
@@ -45,9 +45,21 @@ const routes = [
     path:'/home',
     name:'Home',
     component: Home,
+    redirect: '/articleList',
+    children: [
+      {
+        path: '/articleList',component: ArticleList
+      },
+      {
+        path: '/articleDetail',component: ArticleShow
+      }
+    ]
   },
   {
     path: '/articleManage',component: ArticleManage
+  },
+  {
+    path: '/articleDetail',component: ArticleShow
   }
 ];
 
