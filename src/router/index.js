@@ -14,7 +14,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'AdminHome',
     component: AdminHome,
     children: [
@@ -42,7 +42,7 @@ const routes = [
   }
   ,
   {
-    path:'/home',
+    path:'/',
     name:'Home',
     component: Home,
     redirect: '/articleList',
@@ -60,6 +60,9 @@ const routes = [
   },
   {
     path: '/articleDetail',component: ArticleShow
+  },
+  {
+    path: '/Login',component: Login
   }
 ];
 

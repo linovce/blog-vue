@@ -25,14 +25,14 @@
                             <span>转载</span>
                         </el-tag>
                     </div>
-                    <div style="width: 15%;float: left">
-                        <el-tag primary disable-transitions class="el-icon-view">12456</el-tag>
+                    <div style="width: 10%;float: left">
+                        <el-tag primary disable-transitions class="el-icon-view">{{article.views}}</el-tag>
                     </div>
-                    <div style="width: 15%;float: left">
-                        <el-tag primary disable-transitions class="el-icon-star-off">1454</el-tag>
+                    <div style="width: 10%;float: left">
+                        <el-tag primary disable-transitions class="el-icon-star-off">{{article.appreciate}}</el-tag>
                     </div>
-                    <div style="width: 15%;float: left">
-                        <el-tag primary disable-transitions class="el-icon-chat-line-square">98988</el-tag>
+                    <div style="width: 10%;float: left">
+                        <el-tag primary disable-transitions class="el-icon-chat-line-square">0</el-tag>
                     </div>
                 </div>
             </el-card>

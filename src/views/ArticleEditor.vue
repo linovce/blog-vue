@@ -79,6 +79,10 @@
         name: "ArticleEditor",
         data() {
             return {
+                copyright:true,
+                comments:true,
+                publish:true,
+                original:true,
                 tags: [],
                 classifys:[],
                 classifyInputVisible: false,
@@ -121,6 +125,10 @@
                         __this.editForm.content = response.data.content;
                         __this.tags = response.data.labels.split(",");
                         __this.classifys = response.data.classifications.split(",");
+                        __this.copyright=response.data.copyright,
+                        __this.comments=response.data.comments,
+                        __this.publish=response.data.publish,
+                        __this.original=rresponse.data.original
                     })
                 }
             },
@@ -196,6 +204,10 @@
                     labels:__this.tags.toString(),
                     classifications:__this.classifys.toString(),
                     summary:__this.editForm.summary,
+                    copyright:__this.copyright,
+                    comments:__this.comments,
+                    publish:__this.publish,
+                    original:__this.original,
                 }
 
                 if(articleId==null||articleId==""){

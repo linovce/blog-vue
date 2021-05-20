@@ -147,6 +147,7 @@ export default {
           comments:row.comments,
           copyright:row.copyright,
           publish:row.publish,
+          original:row.original,
         }
       }).then(function (response) {
         __this.selectAll();
@@ -162,6 +163,7 @@ export default {
           publish:row.publish,
           comments:row.comments,
           copyright:row.copyright,
+          original:row.original,
         }
       }).then(function (response) {
         __this.selectAll();
@@ -177,6 +179,7 @@ export default {
           copyright:row.copyright,
           comments:row.comments,
           publish:row.publish,
+          original:row.original,
         }
       }).then(function (response) {
         __this.selectAll();
